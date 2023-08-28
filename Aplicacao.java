@@ -18,7 +18,7 @@ public class Aplicacao {
 
     public void run() {
         boolean continuar = true;
-        System.out.println("To do List Programa");
+        System.out.println("Programa To do List");
         while (continuar) {
             System.out.println("\n ==== Menu ===== ");
             System.out.println("1. Adicionar Tarefa");
@@ -26,7 +26,7 @@ public class Aplicacao {
             System.out.println("3. Listar Tarefas por Prioridade");
             System.out.println("4. Listar Tarefas por Status");
             System.out.println("0. Sair");
-            System.out.println("Escolha uma opção: ");
+            System.out.println("\nEscolha uma opção: ");
             int escolha = lerEscolha();
             switch (escolha) {
                 case 1:

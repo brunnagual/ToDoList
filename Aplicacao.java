@@ -2,14 +2,15 @@ package ToDoList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Aplicacao {
     private List<Tarefa> tarefas = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
+
+    public Aplicacao() {
+
+    }
 
     public static void main(String[] args) {
         Aplicacao aplicacao = new Aplicacao();
@@ -56,7 +57,7 @@ public class Aplicacao {
         return escolha;
     }
 
-private void adicionarTarefa() {
+public void adicionarTarefa() {
     System.out.println("Nome da Tarefa: ");
     String nome = scanner.nextLine();
 
@@ -144,5 +145,12 @@ private void rebalancerPrioridade(){
         tarefas.get(i).setPrioridade(i +1);
     }
   }
+
+    public void simulateUserInput(String nome, String descricao, String dataString, int prioridade, String categoria, String status, String observacoes) {
+    }
+
+    public List<Tarefa> getTarefas() {
+        return tarefas;
+    }
 }
 

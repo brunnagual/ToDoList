@@ -50,6 +50,7 @@ O teste unitário TestAdicionarTarefa foi criado para testar a funcionalidade "A
 Este teste unitário oferece uma validação básica de que a funcionalidade "Adicionar Tarefa" está funcionando corretamente. Ele verifica se uma tarefa é adicionada corretamente à lista com os detalhes fornecidos.
 
 ---------- ATUALIZAÇÃO CRIANDO FRONTEND ----------
+
 HTML:
 
 - A estrutura da página foi definida no HTML, incluindo um formulário para adicionar tarefas, um seletor para filtrar por status, e uma lista para exibir as tarefas.

@@ -37,7 +37,7 @@ Requisitos opcionais:
 - Ter uma opção de filtragem por data na listagem;
 - Seria um diferencial para o seu programa ter uma persistência. Não é interessante perder todas as atividades sempre que o programa é fechado, então pense em salvar os dados em algum arquivo (.csv). 
 
-Explicação do Teste Unitário: Adicionando uma Nova Tarefa
+---------------------- Explicação do Teste Unitário: Adicionando uma Nova Tarefa ----------------------
 
 O teste unitário TestAdicionarTarefa foi criado para testar a funcionalidade "Adicionar Tarefa" do Aplicativo Lista de Tarefas. O teste segue o padrão Dado-Quando-Então, que consiste em três fases:
 
@@ -48,3 +48,22 @@ O teste unitário TestAdicionarTarefa foi criado para testar a funcionalidade "A
   Then: O teste verifica se as propriedades da tarefa adicionada correspondem aos valores esperados. Se a tarefa foi adicionada com sucesso e suas propriedades correspondem, o teste é considerado bem-sucedido. Caso contrário, o teste falha.
 
 Este teste unitário oferece uma validação básica de que a funcionalidade "Adicionar Tarefa" está funcionando corretamente. Ele verifica se uma tarefa é adicionada corretamente à lista com os detalhes fornecidos.
+
+---------- ATUALIZAÇÃO CRIANDO FRONTEND ----------
+
+HTML:
+
+- A estrutura da página foi definida no HTML, incluindo um formulário para adicionar tarefas, um seletor para filtrar por status, e uma lista para exibir as tarefas.
+
+CSS:
+
+- Apliquei estilos CSS para dar à aplicação uma aparência mais agradável, definindo a formatação de elementos como botões, inputs e tarefas.
+
+JavaScript:
+
+-  Usando JavaScript, adicionei funcionalidades à aplicação, incluindo:
+- Adicionar tarefas: Podendo adicionar novas tarefas preenchendo os campos no formulário e clicando em "Adicionar Tarefa".
+- Editar tarefas: Clicando no botão "Editar" de uma tarefa, você pode preencher o formulário com os detalhes da tarefa para edição.
+- Excluir tarefas: Cada tarefa tem um botão "Excluir" que permite a remoção da tarefa da lista.
+- Filtrar tarefas: O seletor "Filtrar por Status" permite filtrar as tarefas por status (ToDo, Doing, Done).
+- Armazenamento Local: Funções para salvar e carregar tarefas no Local Storage do navegador, permitindo que as tarefas persistam mesmo após o fechamento da página.

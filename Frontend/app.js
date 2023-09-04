@@ -124,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 taskItem.style.display = "none"; // Ocultar tarefa
             }
         });
-        filterTasks("all");
     }
 // Função para salvar tarefas no Local Storage
     function salvarTarefas(tarefas) {

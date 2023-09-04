@@ -233,6 +233,5 @@ private void listarTarefasPorStatus(){
         return tarefas;
     }
 
-
 }
 

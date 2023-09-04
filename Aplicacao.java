@@ -1,8 +1,12 @@
 package ToDoList;
 
+import ToDoList.Utils.ArquivoUtil;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 public class Aplicacao {
     private List<Tarefa> tarefas = new ArrayList<>();
@@ -18,7 +22,10 @@ public class Aplicacao {
     }
 
     public void run() {
+        
+        tarefas = ArquivoUtil.carregarTarefas();
         boolean continuar = true;
+        
         System.out.println("Programa To do List");
         while (continuar) {
             System.out.println("\n ==== Menu ===== ");
@@ -26,6 +33,8 @@ public class Aplicacao {
             System.out.println("2. Listar Tarefas por Categoria");
             System.out.println("3. Listar Tarefas por Prioridade");
             System.out.println("4. Listar Tarefas por Status");
+            System.out.println("5. Deletar tarefa");
+            System.out.println("6. Adicionar Alarme");
             System.out.println("0. Sair");
             System.out.println("\nEscolha uma opção: ");
             int escolha = lerEscolha();
@@ -42,12 +51,19 @@ public class Aplicacao {
                 case 4:
                     listarTarefasPorStatus();
                     break;
+                case 5:
+                    deletarTarefa();
+                    break;
+                case 6:
+                    definirAlarmeParaTarefa();
+                    break;
                 case 0:
                     continuar = false;
                     break;
                 default:
                     System.out.println("Escolha inválida, tente novamente.");
             }
+            verificarAlarmes(tarefas);
         }
     }
 
@@ -69,16 +85,17 @@ public void adicionarTarefa() {
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     Date dataTermino = null;
+
     try {
         dataTermino = dateFormat.parse(dataString);
     } catch (ParseException e) {
-        System.out.println("Formato de data inválido. Use dd/mm/aaaa");
+        System.out.println("Formato de data inválido: " + dataString);
         return;
     }
 
     System.out.println("Prioridade (1-5): ");
     int prioridade = scanner.nextInt();
-    scanner.nextLine(); //Limpa o buffer
+    scanner.nextLine(); // Limpa o buffer
 
     if (prioridade < 1 || prioridade > 5) {
         System.out.println("Prioridade inválida, use um valor entre 1 e 5");
@@ -97,14 +114,14 @@ public void adicionarTarefa() {
     }
 
     System.out.println("Observações:");
-    String observacoes = scanner.nextLine();
 
-    Tarefa tarefa = new Tarefa(nome, descricao, dataTermino, prioridade, categoria, status);
+    Date dataAlarme = null;
+    Tarefa tarefa = new Tarefa(nome, descricao, dataTermino, prioridade, categoria, status, dataAlarme);
     tarefas.add(tarefa);
 
-    rebalancerPrioridade();
     ArquivoUtil.salvarTarefas(tarefas); // Salva as tarefas no arquivo
 }
+
 private void listarTarefasPorCategoria(){
     System.out.println("Digite a categoria: ");
     String categoria = scanner.nextLine();
@@ -139,12 +156,75 @@ private void listarTarefasPorStatus(){
         }
     }
 }
-private void rebalancerPrioridade(){
-    tarefas.sort((t1, t2) -> t2.getPrioridade() - t1.getPrioridade());
-    for (int i = 0; i < tarefas.size(); i++){
-        tarefas.get(i).setPrioridade(i +1);
+
+    public void deletarTarefa() {
+        System.out.println("Digite o nome da tarefa que deseja deletar: ");
+        String nomeTarefa = scanner.nextLine();
+        Tarefa tarefaParaDeletar = null;
+        for (Tarefa tarefa : tarefas) {
+            if (tarefa.getNome().equalsIgnoreCase(nomeTarefa)) {
+                tarefaParaDeletar = tarefa;
+                break;
+            }
+        }
+        if (tarefaParaDeletar != null) {
+            tarefas.remove(tarefaParaDeletar);
+            System.out.println("Tarefa '" + nomeTarefa + "' deletada com sucesso.");
+            ArquivoUtil.salvarTarefas(tarefas); // Salve as tarefas atualizadas no arquivo.
+        } else {
+            System.out.println("Tarefa '" + nomeTarefa + "' não encontrada.");
+        }
     }
-  }
+
+    private void definirAlarmeParaTarefa() {
+        System.out.println("Digite o nome da tarefa para a qual deseja definir um alarme: ");
+        String nomeTarefaAlarme = scanner.nextLine();
+
+        Tarefa tarefaParaAlarme = null;
+        for (Tarefa tarefa : tarefas) {
+            if (tarefa.getNome().equalsIgnoreCase(nomeTarefaAlarme)) {
+                tarefaParaAlarme = tarefa;
+                break;
+            }
+        }
+
+        if (tarefaParaAlarme != null) {
+            System.out.println("Data de Alarme (dd/MM/yyyy): ");
+            String dataAlarmeString = scanner.nextLine();
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataAlarme = null;
+            try {
+                dataAlarme = dateFormat.parse(dataAlarmeString);
+            } catch (ParseException e) {
+                System.out.println("Formato de data de alarme inválido: " + dataAlarmeString);
+                return;
+            }
+
+            tarefaParaAlarme.setDataAlarme(dataAlarme);
+            System.out.println("Alarme definido com sucesso para a tarefa '" + tarefaParaAlarme.getNome() + "'.");
+            ArquivoUtil.salvarTarefas(tarefas); // Salve as tarefas atualizadas no arquivo.
+        } else {
+            System.out.println("Tarefa '" + nomeTarefaAlarme + "' não encontrada.");
+        }
+    }
+
+    public static void verificarAlarmes(List<Tarefa> tarefas) {
+        Date currentDate = new Date();
+
+        for (Tarefa task : tarefas) {
+            Date alarmeDate = task.getDataAlarme();
+            if (alarmeDate != null && alarmeDate.compareTo(currentDate) <= 0) {
+                System.out.println("ALERTA: A tarefa '" + task.getNome() + "' está vencendo ou já venceu!");
+
+                // Exibir uma mensagem pop-up
+                JOptionPane.showMessageDialog(null, "ALERTA: A tarefa '" + task.getNome() + "' está vencendo ou já venceu!");
+
+                // Emitir um alerta sonoro
+                Toolkit.getDefaultToolkit().beep();
+            }
+        }
+    }
 
     public void simulateUserInput(String nome, String descricao, String dataString, int prioridade, String categoria, String status, String observacoes) {
     }
@@ -152,5 +232,7 @@ private void rebalancerPrioridade(){
     public List<Tarefa> getTarefas() {
         return tarefas;
     }
+
+
 }
 

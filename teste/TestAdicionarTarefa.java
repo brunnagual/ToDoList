@@ -8,7 +8,7 @@ import java.util.Date;
 public class TestAdicionarTarefa {
 
     public static void main(String[] args) {
-    // Given
+        // Given
         Aplicacao aplicacao = new Aplicacao();
 
         String nome = "Sample Task";

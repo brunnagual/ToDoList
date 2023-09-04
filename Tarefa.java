@@ -9,18 +9,17 @@ public class Tarefa {
     private int prioridade;
     private String categoria;
     private String status;
-    private String observacoes;
-
+    private Date dataAlarme;
 
     //Construtor
-    public Tarefa(String nome, String descricao, Date dataTermino, int prioridade, String categoria, String status) {
+    public Tarefa(String nome, String descricao, Date dataTermino, int prioridade, String categoria, String status, Date dataAlarme) {
         this.nome = nome;
         this.descricao = descricao;
         this.dataTermino = dataTermino;
         this.prioridade = prioridade;
         this.categoria = categoria;
         this.status = status;
-        this.observacoes = observacoes;
+        this.dataAlarme = dataAlarme;
     }
 
     // Métodos getters
@@ -60,26 +59,15 @@ public class Tarefa {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
     public String getStatus() {
         return status;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public Date getDataAlarme() {
+        return dataAlarme;
     }
 
-    public String getObservacoes() {
-        return observacoes;
+    public void setDataAlarme(Date dataAlarme) {
+        this.dataAlarme = dataAlarme;
     }
-
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
-    }
-
 }
-
 

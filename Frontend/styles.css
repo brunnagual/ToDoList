@@ -115,3 +115,8 @@ button:hover {
     margin-top: 20px;
     width: 98%;
 }
+#select-all{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 20%;
+}

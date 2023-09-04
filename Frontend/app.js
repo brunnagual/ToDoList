@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const taskItem = document.createElement("div");
             taskItem.classList.add("task");
             taskItem.innerHTML = `
+                <input type="checkbox" data-index="${index}" class="task-checkbox">
                 <strong>${task.name}</strong>
                 <p>${task.description}</p>
                 <p>Data de Término: ${task.date}</p>
@@ -28,6 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p>Status: ${task.status}</p>
             <button data-index="${index}" class="delete-button">Excluir</button>
             <button class="edit-button" data-index="${index}">Editar</button>
+            <button data-index="${index}" class="move-button move-forward">Avançar</button>
+            <button data-index="${index}" class="move-button move-backward">Retroceder</button>
             `;
             taskList.appendChild(taskItem);
         });
@@ -177,4 +180,108 @@ document.addEventListener("DOMContentLoaded", function () {
         renderTasks();
     }
 
+    // Evento para avançar status
+    taskList.addEventListener("click", function (e) {
+        if (e.target.classList.contains("move-forward")) {
+            const index = e.target.getAttribute("data-index");
+            if (index !== null) {
+                // Verifique se o status atual permite avançar
+                const currentIndex = tasks[index].status;
+                const nextStatus = getNextStatus(currentIndex);
+                if (nextStatus) {
+                    tasks[index].status = nextStatus;
+                    renderTasks();
+                }
+            }
+        }
+    });
+
+// Evento para retroceder status
+    taskList.addEventListener("click", function (e) {
+        if (e.target.classList.contains("move-backward")) {
+            const index = e.target.getAttribute("data-index");
+            if (index !== null) {
+                // Verifique se o status atual permite retroceder
+                const currentIndex = tasks[index].status;
+                const previousStatus = getPreviousStatus(currentIndex);
+                if (previousStatus) {
+                    tasks[index].status = previousStatus;
+                    renderTasks();
+                }
+            }
+        }
+    });
+
+    // Evento para selecionar todas as tarefas
+    document.getElementById("select-all").addEventListener("click", function () {
+        const checkboxes = document.querySelectorAll(".task-checkbox");
+        const selectAllButton = document.getElementById("select-all");
+
+        // Verifique se pelo menos uma tarefa está selecionada
+        let atLeastOneSelected = false;
+
+        checkboxes.forEach(function (checkbox) {
+            if (!checkbox.checked) {
+                checkbox.checked = true;
+                atLeastOneSelected = true;
+            } else {
+                checkbox.checked = false;
+            }
+        });
+
+        // Alterne o texto do botão entre "Selecionar Todas" e "Desmarcar Todas"
+        if (atLeastOneSelected) {
+            selectAllButton.textContent = "Desmarcar Todas";
+        } else {
+            selectAllButton.textContent = "Selecionar Todas";
+        }
+    });
+
+    // Função para avançar o status
+    function getNextStatus(currentStatus) {
+        switch (currentStatus) {
+            case "TODO":
+                return "DOING";
+            case "DOING":
+                return "DONE";
+            // Adicione mais casos conforme necessário para seu fluxo de status.
+            default:
+                return currentStatus; // Caso não haja um próximo status definido, mantenha o status atual.
+        }
+    }
+
+// Função para retroceder o status
+    function getPreviousStatus(currentStatus) {
+        switch (currentStatus) {
+            case "DOING":
+                return "TODO";
+            case "DONE":
+                return "DOING";
+            // Adicione mais casos conforme necessário para seu fluxo de status.
+            default:
+                return currentStatus; // Caso não haja um status anterior definido, mantenha o status atual.
+        }
+    }
+
+    // Evento para avançar todas as tarefas
+    document.getElementById("move-all-forward").addEventListener("click", function () {
+        tasks.forEach(function (task) {
+            const nextStatus = getNextStatus(task.status);
+            if (nextStatus) {
+                task.status = nextStatus;
+            }
+        });
+        renderTasks();
+    });
+
+// Evento para retroceder todas as tarefas
+    document.getElementById("move-all-backward").addEventListener("click", function () {
+        tasks.forEach(function (task) {
+            const previousStatus = getPreviousStatus(task.status);
+            if (previousStatus) {
+                task.status = previousStatus;
+            }
+        });
+        renderTasks();
+    });
 });

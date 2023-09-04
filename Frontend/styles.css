@@ -1,8 +1,19 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background: url("/Frontend/img/img.jpeg");
     margin: 0;
     padding: 0;
+}
+
+body::before {
+    content: "";
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 
 .container {
@@ -18,7 +29,12 @@ h1 {
 }
 
 form {
-    margin-top: 20px;
+    align-content: center;
+    width: 90%;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 label {
@@ -42,6 +58,7 @@ button {
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 button:hover {
@@ -67,4 +84,34 @@ button:hover {
 
 .task button:hover {
     background-color: #c82333;
+}
+
+#task-name{
+    margin-top: 20px;
+    width: 98%;
+}
+#task-status{
+    margin-top: 20px;
+    width: 100%;
+}
+#task-category{
+    margin-top: 20px;
+    width: 98%;
+}
+#task-priority{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+#task-date{
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+#status-filter{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+#task-description{
+    margin-top: 20px;
+    width: 98%;
 }

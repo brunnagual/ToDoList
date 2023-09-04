@@ -61,7 +61,8 @@ CSS:
 JavaScript:
 
 -  Usando JavaScript, adicionei funcionalidades à aplicação, incluindo:
-        - Adicionar tarefas: Podendo adicionar novas tarefas preenchendo os campos no formulário e clicando em "Adicionar Tarefa".
-        - Editar tarefas: Clicando no botão "Editar" de uma tarefa, você pode preencher o formulário com os detalhes da tarefa para edição.
-        - Excluir tarefas: Cada tarefa tem um botão "Excluir" que permite a remoção da tarefa da lista.
-        - Filtrar tarefas: O seletor "Filtrar por Status" permite filtrar as tarefas por status (ToDo, Doing, Done).
+- Adicionar tarefas: Podendo adicionar novas tarefas preenchendo os campos no formulário e clicando em "Adicionar Tarefa".
+- Editar tarefas: Clicando no botão "Editar" de uma tarefa, você pode preencher o formulário com os detalhes da tarefa para edição.
+- Excluir tarefas: Cada tarefa tem um botão "Excluir" que permite a remoção da tarefa da lista.
+- Filtrar tarefas: O seletor "Filtrar por Status" permite filtrar as tarefas por status (ToDo, Doing, Done).
+- Armazenamento Local: Funções para salvar e carregar tarefas no Local Storage do navegador, permitindo que as tarefas persistam mesmo após o fechamento da página.

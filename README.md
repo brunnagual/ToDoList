@@ -37,7 +37,7 @@ Requisitos opcionais:
 - Ter uma opção de filtragem por data na listagem;
 - Seria um diferencial para o seu programa ter uma persistência. Não é interessante perder todas as atividades sempre que o programa é fechado, então pense em salvar os dados em algum arquivo (.csv). 
 
-Explicação do Teste Unitário: Adicionando uma Nova Tarefa
+---------------------- Explicação do Teste Unitário: Adicionando uma Nova Tarefa ----------------------
 
 O teste unitário TestAdicionarTarefa foi criado para testar a funcionalidade "Adicionar Tarefa" do Aplicativo Lista de Tarefas. O teste segue o padrão Dado-Quando-Então, que consiste em três fases:
 
